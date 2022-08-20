@@ -2,6 +2,7 @@ package com.blog.services;
 
 import com.blog.entities.User;
 import com.blog.payloads.UserDto;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,5 +16,5 @@ public interface UserService {
 
     List<UserDto> getAllUsers();
 
-    boolean deleteUser(Integer userId);
+    void deleteUser(Integer userId);
 }
