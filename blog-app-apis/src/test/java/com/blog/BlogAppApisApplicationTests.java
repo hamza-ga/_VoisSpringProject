@@ -13,13 +13,6 @@ class BlogAppApisApplicationTests {
     @Test
     void contextLoads() {
     }
-    @Test
-    public void repoTest(){
-        String classname = this.userRepository.getClass().getName();
-        String packName = this.userRepository.getClass().getPackageName();
-        System.out.println(classname);
-        System.out.println(packName);
 
-    }
 
 }

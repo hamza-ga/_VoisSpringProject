@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +33,7 @@ public class UserController {
 
     //post
     @PostMapping("/")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto){
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto){
         UserDto createUserDto = this.userService.createUser(userDto);
         return new ResponseEntity<>(createUserDto, HttpStatus.CREATED);
     }
@@ -40,7 +41,7 @@ public class UserController {
 
     //update
     @PutMapping("/{id}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable("id") Integer id , @RequestBody UserDto userDto){
+    public ResponseEntity<UserDto> updateUser(@Valid @PathVariable("id") Integer id , @RequestBody UserDto userDto){
         UserDto userUpdate = this.userService.updateUser(userDto,id);
         return new ResponseEntity<>(userUpdate, HttpStatus.OK);//ResponseEntity.ok(userUpdate)
     }
