@@ -1,5 +1,6 @@
 package com.blog.controllers;
 
+import com.blog.entities.Post;
 import com.blog.payloads.PostDto;
 import com.blog.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;

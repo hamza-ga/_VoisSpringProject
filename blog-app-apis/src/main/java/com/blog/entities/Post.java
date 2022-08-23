@@ -27,6 +27,6 @@ public class Post {
     private Date addedDate;
 
     @ManyToOne
-    private User userId;
+    private User user;
 
 }

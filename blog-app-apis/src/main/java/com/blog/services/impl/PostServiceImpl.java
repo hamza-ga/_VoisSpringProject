@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class PostServicImpl implements PostService {
+public class PostServiceImpl implements PostService {
 
     @Autowired
     private PostRepository postRepository;
@@ -32,7 +32,7 @@ public class PostServicImpl implements PostService {
         Post post = this.modelMapper.map(postDto, Post.class);
         post.setImageName("default.png");
         post.setAddedDate(new Date());
-        post.setUserId(user);
+        post.setUser(user);
         Post newPost = this.postRepository.save(post);
         return this.modelMapper.map(newPost,PostDto.class);
     }
