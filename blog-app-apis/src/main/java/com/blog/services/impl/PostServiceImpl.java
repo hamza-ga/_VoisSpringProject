@@ -31,7 +31,7 @@ public class PostServiceImpl implements PostService {
     public PostDto createPost(PostDto postDto, Integer userId) {
         User user = this.userRepository.findById(userId).orElseThrow(()->new ResourceNotFoundExeption("User","User id", userId));
         Post post = this.modelMapper.map(postDto, Post.class);
-        post.setImageName("default.png");
+        //post.setImageName("default.png");
         post.setAddedDate(new Date());
         post.setUser(user);
         Post newPost = this.postRepository.save(post);
@@ -43,7 +43,7 @@ public class PostServiceImpl implements PostService {
         Post post = this.postRepository.findById(postId).orElseThrow(()-> new ResourceNotFoundExeption("Post","post id", postId));
         post.setTitle(postDto.getTitle());
         post.setContent(postDto.getContent());
-        post.setImageName(postDto.getImageName());
+        //post.setImageName(postDto.getImageName());
         Post updatedPost = this.postRepository.save(post);
         return this.modelMapper.map(updatedPost, PostDto.class);
     }
