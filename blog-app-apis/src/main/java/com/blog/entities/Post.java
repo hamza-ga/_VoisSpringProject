@@ -23,7 +23,6 @@ public class Post {
     @Column(length = 10000)
     private String content;
 
-    //private String imageName;
     private Date addedDate;
 
     @ManyToOne

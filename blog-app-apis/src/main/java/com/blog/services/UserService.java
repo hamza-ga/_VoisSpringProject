@@ -1,13 +1,12 @@
 package com.blog.services;
 
-import com.blog.entities.User;
 import com.blog.payloads.UserDto;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 public interface UserService {
 
+    UserDto registerNewUser(UserDto userDto);
     UserDto createUser(UserDto user);
 
     UserDto updateUser(UserDto user,Integer userId);
