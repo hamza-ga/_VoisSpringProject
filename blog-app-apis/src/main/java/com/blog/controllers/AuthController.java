@@ -24,11 +24,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     @Autowired
-    private JwtTokenHelper jwtTokenHelper;
+    private JwtTokenHelper jwtTokenHelper;//methods on the token
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;//load user by username
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;//authenticate
 
     @Autowired
     private UserService userService;
@@ -43,6 +43,7 @@ public class AuthController {
         response.setToken(token);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
 
     private void authenticate(String username, String password) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);

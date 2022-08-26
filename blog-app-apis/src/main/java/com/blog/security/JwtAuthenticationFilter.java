@@ -17,8 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * in this class we take the access token and analysis
+ * it and return the userDetails to be available for use
+ */
+
+
 @Component
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends OncePerRequestFilter {//aims to guarantee a single execution per request dispatch, on any servlet container.
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -55,14 +61,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             if(this.jwtTokenHelper.validateToken(token,userDetails)){
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+                //a bridge between servlet classes and Spring classes
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
+                //ThreadLocal object to store security context,
+                // which means that the security context is always available to methods in the same thread of execution,
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }else {
                 System.out.println("invalid jwt token");
             }
         }else {
-            System.out.println("Usrname is null or context is not null");
+            System.out.println("Username is null or context is not null");
         }
         filterChain.doFilter(request,response);
     }

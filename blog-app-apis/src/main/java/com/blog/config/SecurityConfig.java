@@ -18,10 +18,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * in this class we configure the HttpSecurity
+ * and the password encryption
+ *
+ */
+
 @Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+@EnableWebSecurity //automatically apply the class to the global WebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)//apply authorization rules that the application checks before the call to a method.
+public class SecurityConfig extends WebSecurityConfigurerAdapter {//allows customization to both WebSecurity and HttpSecurity
 
     @Autowired
     private CustomUserDetailService customUserDetailService;
@@ -34,18 +40,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.
-                csrf()
-                .disable()
+                csrf().disable()
                 .authorizeHttpRequests()
-                .antMatchers("/api/v1/auth/**").permitAll()
+                .antMatchers("/api/v1/auth/**").permitAll()//Allows configuring the HttpSecurity to only be invoked when matching the provided ant pattern.
                 .antMatchers(HttpMethod.GET).permitAll()
-                .anyRequest()
-                .authenticated()
+                .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(this.jwtAuthenticationEntryPoint)
                 .and()
-                .sessionManagement()
+                .sessionManagement()// only a single instance of a user is authenticated at a time
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(this.jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
