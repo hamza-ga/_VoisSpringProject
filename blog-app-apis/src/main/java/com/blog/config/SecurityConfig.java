@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {//allows custo
         http.
                 csrf().disable()
                 .authorizeHttpRequests()
-                .antMatchers("/api/v1/auth/**").permitAll()//Allows configuring the HttpSecurity to only be invoked when matching the provided ant pattern.
+                .antMatchers("/**").permitAll()//Allows configuring the HttpSecurity to only be invoked when matching the provided ant pattern.
                 .antMatchers(HttpMethod.GET).permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {//allows custo
                 .and()
                 .sessionManagement()// only a single instance of a user is authenticated at a time
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilterBefore(this.jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        //http.addFilterBefore(this.jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
 

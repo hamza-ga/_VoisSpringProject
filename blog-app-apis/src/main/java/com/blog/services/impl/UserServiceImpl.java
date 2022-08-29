@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +32,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleRepository roleRepository;
 
+    //no longer working XXXXXXXXXXXXXXXXXXXXXXXXX
     @Override
     public UserDto createUser(UserDto userDto) {
         User user = this.dtoToUser(userDto);
@@ -38,6 +40,7 @@ public class UserServiceImpl implements UserService {
         return this.userToDto(savedUser);
     }
 
+    //no longer working XXXXXXXXXXXXXXXXXXXXXXXX
     @Override
     public UserDto updateUser(UserDto userDto, Integer userId) {
 
@@ -46,6 +49,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
         user.setAbout(userDto.getAbout());
+        user.setRoles(userDto.getRoles());
         User updatedUser = this.userRepository.save(user);
         return this.userToDto(updatedUser);
 
@@ -60,13 +64,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> getAllUsers() {
         List<User> users = this.userRepository.findAll();
-        List<UserDto> userDtos = users.stream().map(user -> this.userToDto(user)).collect(Collectors.toList());
-        return userDtos;
+        return users.stream().map(this::userToDto).collect(Collectors.toList());
     }
 
     @Override
     public void deleteUser(Integer userId) {
         User user = this.userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundExeption("User","id",userId));
+        System.out.println("##################################################################");
+        System.out.println(user);
+        System.out.println("##################################################################");
         this.userRepository.delete(user);
     }
 

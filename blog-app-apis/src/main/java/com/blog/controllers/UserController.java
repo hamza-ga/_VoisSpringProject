@@ -6,17 +6,18 @@ import com.blog.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     //get all
     @GetMapping("/")
@@ -45,10 +46,13 @@ public class UserController {
         return new ResponseEntity<>(userUpdate, HttpStatus.OK);//ResponseEntity.ok(userUpdate)
     }
     //delete
+    //@PreAuthorize("hasRole('ADMIN_USER')")
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse> deleteUser(@PathVariable("id") Integer id){
+        System.out.println("##################################################################");
+        System.out.println("##################################################################");
         this.userService.deleteUser(id);
-        return new ResponseEntity(new ApiResponse("User Deleted Successfully", true),HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse("User Deleted Successfully", true),HttpStatus.OK);
     }
 
 }

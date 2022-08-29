@@ -1,5 +1,6 @@
 package com.blog.payloads;
 
+import com.blog.entities.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,7 +28,7 @@ public class UserDto {
     @NotEmpty
     private String about;
 
-    private Set<RoleDto> roles = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 }
 
 

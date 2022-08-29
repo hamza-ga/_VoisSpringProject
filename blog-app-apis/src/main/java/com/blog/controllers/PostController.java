@@ -1,6 +1,5 @@
 package com.blog.controllers;
 
-import com.blog.entities.Post;
 import com.blog.payloads.ApiResponse;
 import com.blog.payloads.PostDto;
 import com.blog.services.PostService;
@@ -14,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/posts")
+@RequestMapping("/posts")
 public class PostController {
 
     @Autowired
@@ -49,7 +48,7 @@ public class PostController {
     }
 
     //delete post
-    @PreAuthorize("hasRole('ADMIN')")
+
     @DeleteMapping("/delete/{postId}")
     public ApiResponse deletePost(@PathVariable("postId") Integer postId){
         this.postService.deletePost(postId);
@@ -57,6 +56,7 @@ public class PostController {
     }
 
     //Edit post
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{postId}")
     public ResponseEntity<PostDto> updatePost( @RequestBody PostDto postDto, @PathVariable("postId") Integer postId){
         PostDto updatedPost = this.postService.updatePost(postDto,postId);

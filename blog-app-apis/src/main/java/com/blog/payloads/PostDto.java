@@ -1,7 +1,6 @@
 package com.blog.payloads;
 
 
-import com.blog.entities.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

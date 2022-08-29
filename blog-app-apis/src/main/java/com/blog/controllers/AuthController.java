@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/")
 public class AuthController {
 
     @Autowired
@@ -33,7 +33,7 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/login")
+    @PostMapping("login")
     public ResponseEntity<JwtAuthResponse> createToken(@RequestBody JwtAuthRequest request){
         this.authenticate(request.getUsername(),request.getPassword());
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(request.getUsername());
@@ -57,7 +57,7 @@ public class AuthController {
     }
 
     //register new user api
-    @PostMapping("/register")
+    @PostMapping("register")
     public  ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDto){
         UserDto registeredUser = this.userService.registerNewUser(userDto);
         return new ResponseEntity<>(registeredUser,HttpStatus.CREATED);

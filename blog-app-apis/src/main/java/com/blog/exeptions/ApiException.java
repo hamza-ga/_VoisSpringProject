@@ -6,7 +6,7 @@ public class ApiException extends RuntimeException{
         super(message);
     }
 
-    public ApiException() {
-
-    }
+//    public ApiException() {
+//
+//    }
 }
